@@ -23,7 +23,7 @@ El codigo esta bien formado cuando alguien que no lo ha codificado es capaz de l
 8. No uses guiones bajos (_) para nombres de variables locales.
 9. No uses palabras reservadas para nombres de variables.
 10. Usa el prefijo “Es” ó “Is” para variables de tipo boolean o prefijos similares.
-11. Los nombres de Clases o Métodos y funciones deben seguir el estándar **<Accion/Verbo en Inglés><descripción>.** Ejemplo: getClientes();
+11. Los nombres de Clases o Métodos y funciones deben seguir el estándar **Accion/Verbo en Inglés.descripción** Ejemplo: getClientes();
 12. El nombre de los archivos debe coincidir con el nombre de la clase.
 
 
