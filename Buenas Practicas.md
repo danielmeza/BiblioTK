@@ -19,28 +19,15 @@ El codigo esta bien formado cuando alguien que no lo ha codificado es capaz de l
 4. Usa el prefijo “I” con notación Pascal para las interfaces (Ejemplo: IEntity). Utiliza “T“ para estructuras de tipos de datos.
 5. No uses notación Húngara para el nombre de las variables.
 6. Usa palabras entendibles y descriptivas para nombrar a las variables. No uses abreviaciones.
-7. No uses nombres de variables de un solo caracter como i, n, s etc. Usa nombres como indice, temp. **Una excepción** en este caso podría ser las variables usadas para iteraciones en los ciclos:
-
-```sh
-for ( int i = 0; i < cuantos; i++)
-{ ....
-}
-```
+7. No uses nombres de variables de un solo caracter como i, n, s etc. Usa nombres como indice, temp. **Una excepción** en este caso podría ser las variables usadas para iteraciones en los ciclos.
 8. No uses guiones bajos (_) para nombres de variables locales.
 9. No uses palabras reservadas para nombres de variables.
 10. Usa el prefijo “Es” ó “Is” para variables de tipo boolean o prefijos similares.
-```sh
-private bool EsValido
-private bool IsActivo
-```
-11. Los nombres de Clases o Métodos y funciones deben seguir el estándar :
-```sh
-<Accion/Verbo en Inglés><descripción>
-GetClientes();
-AddCliente();
-```
+11. Los nombres de Clases o Métodos y funciones deben seguir el estándar **Accion/Verbo en Inglés.descripción** Ejemplo: getClientes();
 12. El nombre de los archivos debe coincidir con el nombre de la clase.
 
+
+ 
 # Buenas prácticas de programación
 > “Los programas deben ser escritos para que los lean las personas, y sólo incidentalmente, para que lo ejecuten las máquinas”.
 – Abelson and Sussman
