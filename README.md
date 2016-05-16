@@ -20,7 +20,7 @@ La plataforma deben ser construida bajo la tecnologia ASP.net MVC 5.
 
 - Leer la buenas practicas para la programacion de este proyecto.
 
-- Descripcion lo mas claro posible las aportaciones que se realicen.
+- Realizar descripciones lo mas claro posible de las aportaciones que se realicen.
 
 - Usar la mayor cordura, este proyecto no aprueba la pirateria de contenido.
 
