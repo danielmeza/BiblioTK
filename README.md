@@ -24,6 +24,8 @@ Todos están invitados a aportar con código, ideas, diseños y todo lo que cons
 - Cuando tengas código funcional para compartir, hazlo por medio de un "Pull Request" describiendo claramente la funcionalidad que aportas. Ten siempre cuidad de seguir las buenas practicas que hemos hecho hincapié en este proyecto.
 - De ser posible incorpora **"Test de Pruebas"** para todo el código que aportes.
 
+## [RoadMap](https://github.com/rex2002xp/BiblioTK/wiki/Roadmap/)
+
 ## Documentación de referencia.
 - [Conociendo Github](http://conociendogithub.readthedocs.io/en/latest/data/dinamica-de-uso/)
 - [Fork de repositorios en Github](http://aprendegit.com/fork-de-repositorios-para-que-sirve/)
