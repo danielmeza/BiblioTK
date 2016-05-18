@@ -6,10 +6,11 @@ namespace BiblioTK.Models
     /// <summary>
     /// Contexto para interactuar con la base de datos.
     /// </summary>
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : 
+        IdentityDbContext<ApplicationUser, ApplicationRole, string, ApplicationUserLogin, ApplicationUserRole, ApplicationUserClaim>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("DefaultConnection")
         {
             Configuration.ProxyCreationEnabled = false;
             Configuration.LazyLoadingEnabled = false;
@@ -26,9 +27,9 @@ namespace BiblioTK.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+           
 
-            modelBuilder.Entity<ApplicationUser>().ToTable("Usuarios", "dbo").Property(p => p.Id).HasColumnName("Id").HasMaxLength(36);
+            modelBuilder.Entity<ApplicationUser>().ToTable("Usuarios", "dbo").Property(p => p.Id).HasColumnName("Id").HasMaxLength(36); 
             modelBuilder.Entity<ApplicationUser>().ToTable("Usuarios", "dbo").Property(p => p.UserName).HasColumnName("Usuario").HasMaxLength(50);
             modelBuilder.Entity<ApplicationUser>().ToTable("Usuarios", "dbo").Property(p => p.PhoneNumber).HasColumnName("Telefono").HasMaxLength(50);
             modelBuilder.Entity<ApplicationUser>().ToTable("Usuarios", "dbo").Property(p => p.PhoneNumberConfirmed).HasColumnName("TelefonoConfirmado");
@@ -41,25 +42,25 @@ namespace BiblioTK.Models
             modelBuilder.Entity<ApplicationUser>().ToTable("Usuarios", "dbo").Property(p => p.SecurityStamp).HasColumnName("TokenSeguridad");
             modelBuilder.Entity<ApplicationUser>().ToTable("Usuarios", "dbo").Property(p => p.FirstName).HasColumnName("Nombres");
             modelBuilder.Entity<ApplicationUser>().ToTable("Usuarios", "dbo").Property(p => p.LastName).HasColumnName("Apellidos");
-            modelBuilder.Entity<ApplicationUser>().ToTable("Usuarios", "dbo").Property(p => p.Website).HasColumnName("Website");            
+            modelBuilder.Entity<ApplicationUser>().ToTable("Usuarios", "dbo").Property(p => p.Website).HasColumnName("Website");
             modelBuilder.Entity<ApplicationUser>().ToTable("Usuarios", "dbo").Property(p => p.Level).HasColumnName("Nivel");
             modelBuilder.Entity<ApplicationUser>().ToTable("Usuarios", "dbo").Property(p => p.JoinDate).HasColumnName("FechaRegistro");
 
 
-            modelBuilder.Entity<IdentityRole>().ToTable("Roles", "dbo").Property(p => p.Id).HasColumnName("Id").HasMaxLength(36);
-            modelBuilder.Entity<IdentityRole>().ToTable("Roles", "dbo").Property(p => p.Name).HasColumnName("Nombre").HasMaxLength(50);
+            modelBuilder.Entity<ApplicationRole>().ToTable("Roles", "dbo").Property(p => p.Id).HasColumnName("Id").HasMaxLength(36);
+            modelBuilder.Entity<ApplicationRole>().ToTable("Roles", "dbo").Property(p => p.Name).HasColumnName("Nombre").HasMaxLength(50);
             modelBuilder.Entity<ApplicationRole>().ToTable("Roles", "dbo").Property(p => p.Description).HasColumnName("Descripcion").HasMaxLength(200);
 
-            modelBuilder.Entity<IdentityUserRole>().ToTable("UsuariosRoles", "dbo").Property(p => p.RoleId).HasColumnName("RolId").HasMaxLength(36);
-            modelBuilder.Entity<IdentityUserRole>().ToTable("UsuariosRoles", "dbo").Property(p => p.UserId).HasColumnName("UsuarioId").HasMaxLength(35);
+            modelBuilder.Entity<ApplicationUserRole>().ToTable("UsuariosRoles", "dbo").Property(p => p.RoleId).HasColumnName("RolId").HasMaxLength(36);
+            modelBuilder.Entity<ApplicationUserRole>().ToTable("UsuariosRoles", "dbo").Property(p => p.UserId).HasColumnName("UsuarioId").HasMaxLength(35);
 
-            modelBuilder.Entity<IdentityUserLogin>().ToTable("UsuariosLogines", "dbo").Property(p => p.UserId).HasColumnName("UsuarioId").HasMaxLength(36);
-            modelBuilder.Entity<IdentityUserLogin>().ToTable("UsuariosLogines", "dbo").Property(p => p.LoginProvider).HasColumnName("Proveedor");
-            modelBuilder.Entity<IdentityUserLogin>().ToTable("UsuariosLogines", "dbo").Property(p => p.ProviderKey).HasColumnName("ProveedorToken");
+            modelBuilder.Entity<ApplicationUserLogin>().ToTable("UsuariosLogines", "dbo").Property(p => p.UserId).HasColumnName("UsuarioId").HasMaxLength(36);
+            modelBuilder.Entity<ApplicationUserLogin>().ToTable("UsuariosLogines", "dbo").Property(p => p.LoginProvider).HasColumnName("Proveedor");
+            modelBuilder.Entity<ApplicationUserLogin>().ToTable("UsuariosLogines", "dbo").Property(p => p.ProviderKey).HasColumnName("ProveedorToken");
 
-            modelBuilder.Entity<IdentityUserClaim>().ToTable("UsuariosNotificaciones", "dbo").Property(p => p.ClaimType).HasColumnName("Tipo");
-            modelBuilder.Entity<IdentityUserClaim>().ToTable("UsuariosNotificaciones", "dbo").Property(p => p.UserId).HasColumnName("UsuarioId").HasMaxLength(36);
-            modelBuilder.Entity<IdentityUserClaim>().ToTable("UsuariosNotificaciones", "dbo").Property(p => p.ClaimValue).HasColumnName("Valor");
+            modelBuilder.Entity<ApplicationUserClaim>().ToTable("UsuariosNotificaciones", "dbo").Property(p => p.ClaimType).HasColumnName("Tipo");
+            modelBuilder.Entity<ApplicationUserClaim>().ToTable("UsuariosNotificaciones", "dbo").Property(p => p.UserId).HasColumnName("UsuarioId").HasMaxLength(36);
+            modelBuilder.Entity<ApplicationUserClaim>().ToTable("UsuariosNotificaciones", "dbo").Property(p => p.ClaimValue).HasColumnName("Valor");
 
             modelBuilder.Entity<Country>().ToTable("Paises", "dbo").Property(p => p.Name).HasColumnName("Nombre");
 
@@ -72,7 +73,7 @@ namespace BiblioTK.Models
                 .HasRequired<Country>(s => s.CountryOfResidence)
                 .WithMany(s => s.ApplicationUsersByCountryOfResidence)
                 .HasForeignKey(s => s.CountryOfResidenceID).WillCascadeOnDelete(false);
-
+            base.OnModelCreating(modelBuilder);
         }
 
         #region Identidades del proyecto

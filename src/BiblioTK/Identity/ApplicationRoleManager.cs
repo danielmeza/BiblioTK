@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using BiblioTK.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -7,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace BiblioTK.Models
+namespace BiblioTK
 {
     public class ApplicationRoleManager : RoleManager<IdentityRole>
     {
@@ -18,7 +19,7 @@ namespace BiblioTK.Models
 
         public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
         {
-            var appRoleManager = new ApplicationRoleManager(new RoleStore<IdentityRole>(context.Get<ApplicationDbContext>()));
+            var appRoleManager = new ApplicationRoleManager(new RoleStore<IdentityRole>(context: context.Get<ApplicationDbContext>()));
 
             return appRoleManager;
         }

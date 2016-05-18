@@ -1,18 +1,20 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using BiblioTK.Identity;
+using BiblioTK.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using System;
 
-namespace BiblioTK.Models
+namespace BiblioTK
 {
 
     /// <summary>
     /// Permite administrar el usuario, heredando de "UserManager<T>"
     /// </summary>
-    public class ApplicationUserManager : UserManager<ApplicationUser>
+    public class ApplicationUserManager : UserManager<ApplicationUser, string>
     {
-        public ApplicationUserManager(IUserStore<ApplicationUser> store)
+        public ApplicationUserManager(IUserStore<ApplicationUser, string> store)
             : base(store)
         {
         }
@@ -20,17 +22,17 @@ namespace BiblioTK.Models
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var appDbContext = context.Get<ApplicationDbContext>();
-            var appUserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(appDbContext));
+            var manager = new ApplicationUserManager(new ApplicationUserStore(appDbContext));
 
             // Configuramos la validacion para el usuario
-            appUserManager.UserValidator = new UserValidator<ApplicationUser>(appUserManager)
+            manager.UserValidator = new UserValidator<ApplicationUser, string>(manager)
             {
                 AllowOnlyAlphanumericUserNames = true,
                 RequireUniqueEmail = true
             };
 
             // Configuramos la validacion para el password
-            appUserManager.PasswordValidator = new PasswordValidator
+            manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,
                 RequireNonLetterOrDigit = true,
@@ -39,21 +41,25 @@ namespace BiblioTK.Models
                 RequireUppercase = true
             };
 
+            // Configure user lockout defaults
+            manager.UserLockoutEnabledByDefault = true;
+            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            manager.MaxFailedAccessAttemptsBeforeLockout = 5;
 
-
-            //appUserManager.EmailService = new WebApi.Services.EmailService();
+            manager.EmailService = new EmailService();
+            manager.SmsService = new SmsService();
 
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                appUserManager.UserTokenProvider =
-                    new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"))
+                manager.UserTokenProvider =
+                    new DataProtectorTokenProvider<ApplicationUser, string>(dataProtectionProvider.Create("ASP.NET Identity"))
                     {
                         TokenLifespan = TimeSpan.FromHours(6) // tiempo de vigencia del token generado que sera enviado por correo electronico.
                     };
             }
 
-            return appUserManager;
+            return manager;
         }
 
     }

@@ -14,8 +14,11 @@ namespace BiblioTK.Models
 
         [Required]
         [MaxLength(70)]
-        [Index("ixu_pais_nombre", IsUnique = true, IsClustered = false)]
+        [Index("ixu_pais_nombre", IsUnique = true, IsClustered = false)] // Concidera que el nombre lo maneje automaticamente el EF
         public string Name { set; get; }
+
+        [MaxLength(3)]
+        public string Code { get; set; }
 
         public virtual ICollection<ApplicationUser> ApplicationUsersByCountryOfBirth { set; get; }
 
